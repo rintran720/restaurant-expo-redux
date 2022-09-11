@@ -1,0 +1,22 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore all HTML files:
+*.html
+
+# Expo
+.expo
+.expo-shared
+
+# Assets
+assets
+
+# VSC
+.vscode
+
+# Husky
+.husky
+
+# Test
+**/__tests__/*
