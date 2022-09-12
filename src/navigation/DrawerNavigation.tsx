@@ -1,6 +1,6 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import ReportScreen from '@screens/ReportScreen';
 
-import ReportScreen from '../screens/ReportScreen';
 import HomeStack from './HomeStack';
 
 const Drawer = createDrawerNavigator();
