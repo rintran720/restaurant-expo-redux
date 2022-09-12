@@ -6,7 +6,8 @@
     "paths": {
       "@navigation/*": ["./src/navigation/*"],
       "@screens/*": ["./src/screens/*"],
-      "@interfaces/*": ["./src/interfaces/*"]
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@state/*": ["./src/state/*"]
     }
   }
 }

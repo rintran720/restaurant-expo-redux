@@ -31,6 +31,7 @@ module.exports = function (api) {
             '@navigation': './src/navigation',
             '@interfaces': './src/interfaces',
             '@screens': './src/screens',
+            '@state': './src/state',
             '@config': './src/config',
             '@context': './src/context',
             '@constants': './src/constants',
