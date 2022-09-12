@@ -23,62 +23,49 @@ const initialState: ITableState = {
       cost: 100.2123,
       goods: [
         {
+          code: '123',
           name: 'ABDA',
           cost: 12.1,
           qty: 2,
         },
         {
+          code: '123a',
           name: 'dasd',
           cost: 12.1,
           qty: 1,
         },
         {
-          name: 'ABdasdasdaDA',
+          code: '1232',
+          name: 'ABdasdasf daDA dsa d a sda sd  ',
           cost: 12.1,
           qty: 4,
         },
         {
+          code: '1231',
           name: 'ABsdasdadDA',
           cost: 12.1,
           qty: 3,
         },
         {
+          code: '1234',
           name: 'ABDA',
           cost: 12.1,
           qty: 2,
         },
         {
+          code: '1233',
           name: 'dasd',
           cost: 12.1,
           qty: 1,
         },
         {
+          code: '1235',
           name: 'ABdasdasdaDA',
           cost: 12.12,
           qty: 10,
         },
         {
-          name: 'ABsdasdadDA',
-          cost: 12.1,
-          qty: 3,
-        },
-
-        {
-          name: 'ABDA',
-          cost: 12.13,
-          qty: 2,
-        },
-        {
-          name: 'dasd',
-          cost: 12.1,
-          qty: 1,
-        },
-        {
-          name: 'ABdasdasdaDA',
-          cost: 12.1,
-          qty: 4,
-        },
-        {
+          code: '126',
           name: 'ABsdasdadDA',
           cost: 12.1,
           qty: 3,

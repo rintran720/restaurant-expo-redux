@@ -1,5 +1,5 @@
 import { RootState } from '../store';
 
-export const goodSelector = (state: RootState) => {
-  return state.good;
+export const goodsSelector = (state: RootState) => {
+  return state.good.goods;
 };

@@ -19,7 +19,7 @@ const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,
-  blacklist: ['table'],
+  blacklist: ['table', 'good'],
 };
 
 const reducer = combineReducers({

@@ -3,6 +3,7 @@ export interface IGoodState {
 }
 
 export interface Good {
+  code: string;
   name: string;
   cost: number;
 }

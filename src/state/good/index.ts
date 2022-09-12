@@ -3,7 +3,48 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Good, IGoodState } from './types';
 
 const initialState: IGoodState = {
-  goods: [],
+  goods: [
+    {
+      code: '123',
+      name: 'ABDA',
+      cost: 12.1,
+    },
+    {
+      code: '123a',
+      name: 'dasd',
+      cost: 12.1,
+    },
+    {
+      code: '1232',
+      name: 'ABdasdasdaDA',
+      cost: 12.1,
+    },
+    {
+      code: '1231',
+      name: 'ABsdasdadDA',
+      cost: 12.1,
+    },
+    {
+      code: '1234',
+      name: 'ABDA',
+      cost: 12.1,
+    },
+    {
+      code: '1233',
+      name: 'dasd',
+      cost: 12.1,
+    },
+    {
+      code: '1235',
+      name: 'ABdasdasdaDA',
+      cost: 12.12,
+    },
+    {
+      code: '126',
+      name: 'ABsdasdadDA',
+      cost: 12.1,
+    },
+  ],
 };
 
 const goodSlice = createSlice({

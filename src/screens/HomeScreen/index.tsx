@@ -1,7 +1,7 @@
 import { useAppSelector } from '@state/store';
 import { tablesSelector } from '@state/table/selector';
 import { Table, TableStatus } from '@state/table/types';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -15,19 +15,54 @@ import { navigate } from '../../navigation/Navigation';
 import { getTableName } from '../../utils/getTableName';
 import { styles } from './styles';
 
+const NumberButton = ({ num, onPress }: { num: string; onPress?: any }) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        flex: 1,
+        height: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Text>{num}</Text>
+    </TouchableOpacity>
+  );
+};
 const HomeScreen = () => {
   const tables: Table[] = useAppSelector(tablesSelector);
-  console.log('a', tables);
+  const [col, setCol] = useState(2);
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        {/* <TouchableOpacity>Add new Table</TouchableOpacity> */}
+        <View style={{ flexDirection: 'row' }}>
+          <NumberButton
+            num={'2 ◫'}
+            onPress={() => {
+              setCol(2);
+            }}
+          />
+          <NumberButton
+            num={'3 ◫'}
+            onPress={() => {
+              setCol(3);
+            }}
+          />
+          <NumberButton
+            num={'4 ◫'}
+            onPress={() => {
+              setCol(4);
+            }}
+          />
+        </View>
         <FlatList<Table>
+          key={col}
           data={tables}
           horizontal={false}
-          numColumns={2}
+          numColumns={col}
           renderItem={({ item, index, separators }) => (
             <TouchableOpacity
               style={{
@@ -38,8 +73,6 @@ const HomeScreen = () => {
               onPress={() => {
                 navigate('Table', { table: item, something: 'like this' });
               }}
-              onShowUnderlay={separators.highlight}
-              onHideUnderlay={separators.unhighlight}
             >
               <View
                 style={{

@@ -28,6 +28,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginHorizontal: 10,
     borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: '#f09d51',
     justifyContent: 'center',
     alignItems: 'center',
   },
