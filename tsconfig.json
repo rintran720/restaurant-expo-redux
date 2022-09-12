@@ -7,7 +7,8 @@
       "@navigation/*": ["./src/navigation/*"],
       "@screens/*": ["./src/screens/*"],
       "@interfaces/*": ["./src/interfaces/*"],
-      "@state/*": ["./src/state/*"]
+      "@state/*": ["./src/state/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }

@@ -12,17 +12,19 @@ import {
 } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
+import { goodReducer } from './good';
 import { tableReducer } from './table';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,
-  blacklist: [],
+  blacklist: ['table'],
 };
 
 const reducer = combineReducers({
   table: tableReducer,
+  good: goodReducer,
 });
 
 const persistedReducer = persistReducer<any, any>(persistConfig, reducer);

@@ -1,6 +1,10 @@
+import { Table } from '../state/table/types';
+
 export type AppRootParamsList = {
   Home: undefined;
-  Table: undefined;
+  Table: {
+    table: Table;
+  };
   Report: undefined;
   Setting: undefined;
 };

@@ -1,9 +1,96 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { IAccountState } from './types';
+import { ITableState, Table, TableStatus } from './types';
 
-const initialState: IAccountState = {
-  tables: [],
+const initialState: ITableState = {
+  tables: [
+    {
+      no: 1,
+      name: 'Drink',
+      status: TableStatus.DEFAULT,
+    },
+    {
+      no: 2,
+      name: 'Drink 2',
+      status: TableStatus.DEFAULT,
+    },
+    {
+      no: 3,
+      name: 'Drink 3',
+      status: TableStatus.FILLED,
+      start: new Date(),
+      end: new Date(),
+      cost: 100.2123,
+      goods: [
+        {
+          name: 'ABDA',
+          cost: 12.1,
+          qty: 2,
+        },
+        {
+          name: 'dasd',
+          cost: 12.1,
+          qty: 1,
+        },
+        {
+          name: 'ABdasdasdaDA',
+          cost: 12.1,
+          qty: 4,
+        },
+        {
+          name: 'ABsdasdadDA',
+          cost: 12.1,
+          qty: 3,
+        },
+        {
+          name: 'ABDA',
+          cost: 12.1,
+          qty: 2,
+        },
+        {
+          name: 'dasd',
+          cost: 12.1,
+          qty: 1,
+        },
+        {
+          name: 'ABdasdasdaDA',
+          cost: 12.12,
+          qty: 10,
+        },
+        {
+          name: 'ABsdasdadDA',
+          cost: 12.1,
+          qty: 3,
+        },
+
+        {
+          name: 'ABDA',
+          cost: 12.13,
+          qty: 2,
+        },
+        {
+          name: 'dasd',
+          cost: 12.1,
+          qty: 1,
+        },
+        {
+          name: 'ABdasdasdaDA',
+          cost: 12.1,
+          qty: 4,
+        },
+        {
+          name: 'ABsdasdadDA',
+          cost: 12.1,
+          qty: 3,
+        },
+      ],
+    },
+    {
+      no: 4,
+      name: 'Drink 4',
+      status: TableStatus.DEFAULT,
+    },
+  ],
 };
 
 const tableSlice = createSlice({
@@ -14,8 +101,8 @@ const tableSlice = createSlice({
     pop() {
       // do something
     },
-    push(state, action: PayloadAction<number>) {
-      state.table.push(action.payload);
+    push(state, action: PayloadAction<Table>) {
+      state.tables.push(action.payload);
     },
   },
   extraReducers: (builder) => {
