@@ -5,22 +5,21 @@ import { ITableState, Table, TableStatus } from './types';
 const initialState: ITableState = {
   tables: [
     {
-      no: 1,
+      no: '1',
       name: 'Drink',
       status: TableStatus.DEFAULT,
     },
     {
-      no: 2,
+      no: '2',
       name: 'Drink 2',
       status: TableStatus.DEFAULT,
     },
     {
-      no: 3,
+      no: '3',
       name: 'Drink 3',
       status: TableStatus.FILLED,
       start: new Date(),
       end: new Date(),
-      cost: 100.2123,
       goods: [
         {
           code: '123',
@@ -73,7 +72,7 @@ const initialState: ITableState = {
       ],
     },
     {
-      no: 4,
+      no: '4',
       name: 'Drink 4',
       status: TableStatus.DEFAULT,
     },
@@ -88,8 +87,17 @@ const tableSlice = createSlice({
     pop() {
       // do something
     },
-    push(state, action: PayloadAction<Table>) {
+    createTable(state, action: PayloadAction<Table>) {
       state.tables.push(action.payload);
+    },
+    updateTable(state, action: PayloadAction<Table & { id: string }>) {
+      const { id, ...table } = action.payload;
+      state.tables = state.tables.map((tb) => {
+        if (tb.no === id) {
+          return table;
+        }
+        return tb;
+      });
     },
   },
   extraReducers: (builder) => {

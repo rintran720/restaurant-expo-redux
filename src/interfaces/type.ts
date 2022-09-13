@@ -5,6 +5,11 @@ export type AppRootParamsList = {
   Table: {
     table: Table;
   };
+  TableManagement: undefined;
+  TableDetail: {
+    action: string;
+    table: Table;
+  };
   Report: undefined;
   Setting: undefined;
 };

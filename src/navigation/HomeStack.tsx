@@ -9,7 +9,11 @@ const Stack = createNativeStackNavigator<AppRootParamsList>();
 export default function HomeStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: true, title: 'Home' }}
+      />
       <Stack.Screen
         name="Table"
         component={TableScreen}

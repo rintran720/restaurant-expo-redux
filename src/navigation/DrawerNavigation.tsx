@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import ReportScreen from '@screens/ReportScreen';
 
 import HomeStack from './HomeStack';
+import TableManagementStack from './TableManagementStack';
 
 const Drawer = createDrawerNavigator();
 
@@ -13,7 +13,11 @@ export default function DrawerNavigation() {
         component={HomeStack}
         options={{ headerShown: false, title: 'Home' }}
       />
-      <Drawer.Screen name="Report" component={ReportScreen} />
+      <Drawer.Screen
+        name="TableManagement"
+        component={TableManagementStack}
+        options={{ headerShown: false, title: 'Table Management' }}
+      />
     </Drawer.Navigator>
   );
 }

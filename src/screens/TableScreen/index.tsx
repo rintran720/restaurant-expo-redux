@@ -25,11 +25,13 @@ const TableScreen = () => {
 
   const calculateCost = useMemo(() => {
     let cost = 0;
-    table.goods?.forEach((g) => {
-      cost = g.cost * g.qty + cost;
-    });
+    if (table?.goods.length > 0) {
+      table.goods?.forEach((g) => {
+        cost = g.cost * g.qty + cost;
+      });
+    }
     return cost;
-  }, [table.goods]);
+  }, [table]);
 
   const [text, onChangeText] = React.useState('');
 
