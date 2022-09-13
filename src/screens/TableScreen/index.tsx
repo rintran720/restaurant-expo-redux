@@ -186,7 +186,7 @@ const TableScreen = () => {
             marginTop: 10,
           }}
         >
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               flex: 1,
               justifyContent: 'center',
@@ -198,7 +198,7 @@ const TableScreen = () => {
             }}
           >
             <Text style={{ fontSize: 16 }}>Cancel</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             style={{
               flex: 1,

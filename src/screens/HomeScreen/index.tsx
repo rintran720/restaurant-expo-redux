@@ -1,7 +1,7 @@
 import { useAppSelector } from '@state/store';
 import { tablesSelector } from '@state/table/selector';
-import { Table, TableStatus } from '@state/table/types';
-import React, { useState } from 'react';
+import { PickedGood, Table, TableStatus } from '@state/table/types';
+import React, { useCallback, useState } from 'react';
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -33,6 +33,15 @@ const NumberButton = ({ num, onPress }: { num: string; onPress?: any }) => {
 const HomeScreen = () => {
   const tables: Table[] = useAppSelector(tablesSelector);
   const [col, setCol] = useState(2);
+
+  const calculateCost = useCallback((goods: PickedGood[]) => {
+    let cost = 0;
+    goods?.forEach((g) => {
+      cost = g.cost * g.qty + cost;
+    });
+    return cost;
+  }, []);
+
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
@@ -90,7 +99,9 @@ const HomeScreen = () => {
                   {getTableName(item)}
                 </Text>
                 <Text style={{ fontSize: 22, marginTop: 10 }}>
-                  {item.cost ? Number(item.cost).toFixed(2).concat(' €') : '-'}
+                  {item.goods
+                    ? calculateCost(item.goods).toFixed(2).concat(' €')
+                    : '-'}
                 </Text>
               </View>
             </TouchableOpacity>
