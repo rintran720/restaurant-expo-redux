@@ -1,4 +1,6 @@
 import { useRoute } from '@react-navigation/native';
+import { productsSelector } from '@state/product/selector';
+import { Product } from '@state/product/types';
 import React, { useMemo } from 'react';
 import {
   Button,
@@ -10,8 +12,6 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { productsSelector } from '../../state/product/selector';
-import { Product } from '../../state/product/types';
 import { PickedProduct, Table } from '../../state/table/types';
 import { styles } from './styles';
 
@@ -26,8 +26,8 @@ const TableScreen = () => {
   const calculateCost = useMemo(() => {
     let cost = 0;
     if (table?.products?.length > 0) {
-      table.products?.forEach((g: PickedProduct) => {
-        cost = g.cost * g.qty + cost;
+      table.products?.forEach((pp: PickedProduct) => {
+        cost = pp.cost * pp.qty + cost;
       });
     }
     return cost;
@@ -39,7 +39,7 @@ const TableScreen = () => {
     if (text.length === 0) {
       return null;
     } else {
-      return (products as Product[]).find((g) => g.code === text);
+      return (products as Product[]).find((p) => p.productId === text);
     }
   }, [products, text]);
 

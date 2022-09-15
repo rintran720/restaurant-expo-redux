@@ -5,42 +5,42 @@ import { IProductState, Product } from './types';
 const initialState: IProductState = {
   products: [
     {
-      code: '123',
+      productId: '123',
       name: 'ABDA',
       cost: 12.1,
     },
     {
-      code: '123a',
+      productId: '123a',
       name: 'dasd',
       cost: 12.1,
     },
     {
-      code: '1232',
+      productId: '1232',
       name: 'ABdasdasdaDA',
       cost: 12.1,
     },
     {
-      code: '1231',
+      productId: '1231',
       name: 'ABsdasdadDA',
       cost: 12.1,
     },
     {
-      code: '1234',
+      productId: '1234',
       name: 'ABDA',
       cost: 12.1,
     },
     {
-      code: '1233',
+      productId: '1233',
       name: 'dasd',
       cost: 12.1,
     },
     {
-      code: '1235',
+      productId: '1235',
       name: 'ABdasdasdaDA',
       cost: 12.12,
     },
     {
-      code: '126',
+      productId: '126',
       name: 'ABsdasdadDA',
       cost: 12.1,
     },

@@ -3,7 +3,7 @@ export interface IProductState {
 }
 
 export interface Product {
-  code: string;
+  productId: string;
   name: string;
   cost: number;
 }
