@@ -15,7 +15,7 @@ import { tableActions } from '../../state/table';
 import { Table } from '../../state/table/types';
 import { getTableName } from '../../utils/getTableName';
 
-const TableManagementScreen = () => {
+const ProductManagementScreen = () => {
   const tables: Table[] = useAppSelector(tablesSelector);
   const sortedTables = useMemo(
     () => [...tables].sort((a, b) => a.tableId - b.tableId),
@@ -183,4 +183,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TableManagementScreen;
+export default ProductManagementScreen;

@@ -1,4 +1,4 @@
-import { Good } from '../good/types';
+import { Product } from '../product/types';
 
 export interface ITableState {
   tables: Table[];
@@ -15,10 +15,10 @@ export interface Table {
   status?: TableStatus;
   start?: Date;
   end?: Date;
-  goods?: PickedGood[];
+  products?: PickedProduct[];
 }
 
-export interface PickedGood extends Good {
+export interface PickedProduct extends Product {
   qty: number;
   at_time?: Date;
 }

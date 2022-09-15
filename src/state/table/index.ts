@@ -20,7 +20,7 @@ const initialState: ITableState = {
       status: TableStatus.FILLED,
       start: new Date(),
       end: new Date(),
-      goods: [
+      products: [
         {
           code: '123',
           name: 'ABDA',

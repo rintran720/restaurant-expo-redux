@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { goodsSelector } from '../../state/good/selector';
-import { Good } from '../../state/good/types';
-import { PickedGood, Table } from '../../state/table/types';
+import { productsSelector } from '../../state/product/selector';
+import { Product } from '../../state/product/types';
+import { PickedProduct, Table } from '../../state/table/types';
 import { styles } from './styles';
 
 const TableScreen = () => {
@@ -21,12 +21,12 @@ const TableScreen = () => {
     return params;
   }, [params]);
 
-  const goods = useSelector(goodsSelector);
+  const products = useSelector(productsSelector);
 
   const calculateCost = useMemo(() => {
     let cost = 0;
-    if (table?.goods?.length > 0) {
-      table.goods?.forEach((g) => {
+    if (table?.products?.length > 0) {
+      table.products?.forEach((g: PickedProduct) => {
         cost = g.cost * g.qty + cost;
       });
     }
@@ -35,13 +35,13 @@ const TableScreen = () => {
 
   const [text, onChangeText] = React.useState('');
 
-  const foundedGood = useMemo(() => {
+  const foundedProduct = useMemo(() => {
     if (text.length === 0) {
       return null;
     } else {
-      return (goods as Good[]).find((g) => g.code === text);
+      return (products as Product[]).find((g) => g.code === text);
     }
-  }, [goods, text]);
+  }, [products, text]);
 
   if (table) {
     return (
@@ -56,15 +56,15 @@ const TableScreen = () => {
         >
           <Text
             style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}
-          >{`Item: ${table?.goods?.length || 0}`}</Text>
+          >{`Item: ${table?.products?.length || 0}`}</Text>
           <Text style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}>
             {'Total cost: '.concat(calculateCost.toFixed(2))} €
           </Text>
         </View>
-        {table.goods && table?.goods?.length > 0 && (
-          <FlatList<PickedGood>
+        {table.products && table?.products?.length > 0 && (
+          <FlatList<PickedProduct>
             style={{ flex: 1 }}
-            data={(table as Table).goods}
+            data={(table as Table).products}
             renderItem={({ item, index, separators }) => (
               <TouchableOpacity
                 style={{
@@ -173,8 +173,10 @@ const TableScreen = () => {
               console.log(text);
             }}
           />
-          <Text style={styles.nameOfGood}>{foundedGood?.name || '----'}</Text>
-          <TouchableOpacity style={styles.addGood}>
+          <Text style={styles.nameOfProduct}>
+            {foundedProduct?.name || '----'}
+          </Text>
+          <TouchableOpacity style={styles.addProduct}>
             <Text>Add</Text>
           </TouchableOpacity>
         </View>

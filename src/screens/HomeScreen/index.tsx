@@ -1,6 +1,6 @@
 import { useAppSelector } from '@state/store';
 import { tablesSelector } from '@state/table/selector';
-import { PickedGood, Table, TableStatus } from '@state/table/types';
+import { PickedProduct, Table, TableStatus } from '@state/table/types';
 import React, { useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
@@ -39,9 +39,9 @@ const HomeScreen = () => {
 
   const [col, setCol] = useState(2);
 
-  const calculateCost = useCallback((goods: PickedGood[]) => {
+  const calculateCost = useCallback((products: PickedProduct[]) => {
     let cost = 0;
-    goods?.forEach((g) => {
+    products?.forEach((g) => {
       cost = g.cost * g.qty + cost;
     });
     return cost;
@@ -104,8 +104,8 @@ const HomeScreen = () => {
                   {getTableName(item)}
                 </Text>
                 <Text style={{ fontSize: 22, marginTop: 10 }}>
-                  {item.goods
-                    ? calculateCost(item.goods).toFixed(2).concat(' €')
+                  {item.products
+                    ? calculateCost(item.products).toFixed(2).concat(' €')
                     : '-'}
                 </Text>
               </View>

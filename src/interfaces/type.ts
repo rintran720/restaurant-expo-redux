@@ -1,4 +1,5 @@
-import { Table } from '../state/table/types';
+import { Product } from '@state/product/types';
+import { Table } from '@state/table/types';
 
 export type AppRootParamsList = {
   Home: undefined;
@@ -9,6 +10,11 @@ export type AppRootParamsList = {
   TableDetail: {
     action: string;
     table: Table;
+  };
+  ProductManagement: undefined;
+  ProductDetail: {
+    action: string;
+    product: Product;
   };
   Report: undefined;
   Setting: undefined;

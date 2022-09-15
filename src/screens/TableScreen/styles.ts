@@ -18,12 +18,12 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
-  nameOfGood: {
+  nameOfProduct: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  addGood: {
+  addProduct: {
     height: 40,
     paddingHorizontal: 16,
     marginHorizontal: 10,

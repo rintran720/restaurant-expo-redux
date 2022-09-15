@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Good, IGoodState } from './types';
+import { IProductState, Product } from './types';
 
-const initialState: IGoodState = {
-  goods: [
+const initialState: IProductState = {
+  products: [
     {
       code: '123',
       name: 'ABDA',
@@ -47,21 +47,21 @@ const initialState: IGoodState = {
   ],
 };
 
-const goodSlice = createSlice({
-  name: 'good',
+const productSlice = createSlice({
+  name: 'product',
   initialState,
   reducers: {
     // standard reducer logic, with auto-generated action types per reducer
     pop() {
       // do something
     },
-    push(state, action: PayloadAction<Good>) {
-      state.goods.push(action.payload);
+    push(state, action: PayloadAction<Product>) {
+      state.products.push(action.payload);
     },
   },
   extraReducers: (builder) => {},
 });
 
-export const goodActions = goodSlice.actions;
+export const productActions = productSlice.actions;
 
-export const goodReducer = goodSlice.reducer;
+export const productReducer = productSlice.reducer;

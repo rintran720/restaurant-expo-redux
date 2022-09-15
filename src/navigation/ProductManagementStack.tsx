@@ -1,30 +1,30 @@
 import { AppRootParamsList } from '@interfaces/type';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import TableManagementScreen from '@screens/TableManagementScreen';
-
-import ProductDetailScreen from '../screens/ProductDetailScreen';
+import ProductManagementScreen from '@screens/ProductManagementScreen';
+import ProductDetailScreen from '@screens/TableDetailScreen';
+import { getTableName } from '@utils/getTableName';
 
 const Stack = createNativeStackNavigator<AppRootParamsList>();
 
-export default function TableManagementStack() {
+export default function ProductManagementStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="TableManagement"
-        component={TableManagementScreen}
-        options={{ headerShown: true, title: 'Table CMS' }}
+        name="ProductManagement"
+        component={ProductManagementScreen}
+        options={{ headerShown: true, title: 'Product CMS' }}
       />
       <Stack.Screen
-        name="ProductDetail"
+        name="TableDetail"
         component={ProductDetailScreen}
         options={({ route }) => {
           return {
             title:
               route?.params?.action === 'CREATE'
-                ? 'Create new product'
+                ? 'Create new table'
                 : route?.params?.action === 'EDIT'
-                ? route?.params?.product?.name
-                : 'Product detail',
+                ? getTableName(route?.params?.table)
+                : 'Table detail',
             headerShown: true,
           };
         }}
