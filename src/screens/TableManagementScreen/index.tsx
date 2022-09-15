@@ -1,5 +1,5 @@
 import { tablesSelector } from '@state/table/selector';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   Alert,
   FlatList,
@@ -17,6 +17,10 @@ import { getTableName } from '../../utils/getTableName';
 
 const TableManagement = () => {
   const tables: Table[] = useAppSelector(tablesSelector);
+  const sortedTables = useMemo(
+    () => [...tables].sort((a, b) => a.tableId - b.tableId),
+    [tables],
+  );
   const dispatch = useAppDispatch();
 
   const onCreateTable = useCallback(() => {
@@ -62,7 +66,7 @@ const TableManagement = () => {
         </TouchableOpacity>
       </View>
       <FlatList<Table>
-        data={tables}
+        data={sortedTables}
         horizontal={false}
         renderItem={({ item, index, separators }) => (
           <TouchableOpacity
