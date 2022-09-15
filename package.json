@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^1.8.5",
     "expo": "~46.0.9",
     "expo-status-bar": "~1.4.0",
+    "expo-updates": "~0.14.5",
     "lodash": "^4.17.21",
     "moneysafe": "^2.2.1",
     "numeral": "^2.0.6",
