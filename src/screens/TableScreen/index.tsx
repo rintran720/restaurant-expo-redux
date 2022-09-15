@@ -25,7 +25,7 @@ const TableScreen = () => {
 
   const calculateCost = useMemo(() => {
     let cost = 0;
-    if (table?.goods.length > 0) {
+    if (table?.goods?.length > 0) {
       table.goods?.forEach((g) => {
         cost = g.cost * g.qty + cost;
       });
@@ -56,12 +56,12 @@ const TableScreen = () => {
         >
           <Text
             style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}
-          >{`Item: ${table.goods?.length || 0}`}</Text>
+          >{`Item: ${table?.goods?.length || 0}`}</Text>
           <Text style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}>
             {'Total cost: '.concat(calculateCost.toFixed(2))} €
           </Text>
         </View>
-        {table.goods && table.goods.length > 0 && (
+        {table.goods && table?.goods?.length > 0 && (
           <FlatList<PickedGood>
             style={{ flex: 1 }}
             data={(table as Table).goods}

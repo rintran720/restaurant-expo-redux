@@ -21,6 +21,7 @@ const TableManagement = () => {
     () => [...tables].sort((a, b) => a.tableId - b.tableId),
     [tables],
   );
+
   const dispatch = useAppDispatch();
 
   const onCreateTable = useCallback(() => {

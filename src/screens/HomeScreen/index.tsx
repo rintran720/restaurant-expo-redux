@@ -1,7 +1,7 @@
 import { useAppSelector } from '@state/store';
 import { tablesSelector } from '@state/table/selector';
 import { PickedGood, Table, TableStatus } from '@state/table/types';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
   KeyboardAvoidingView,
@@ -32,6 +32,11 @@ const NumberButton = ({ num, onPress }: { num: string; onPress?: any }) => {
 };
 const HomeScreen = () => {
   const tables: Table[] = useAppSelector(tablesSelector);
+  const sortedTables = useMemo(
+    () => [...tables].sort((a, b) => a.tableId - b.tableId),
+    [tables],
+  );
+
   const [col, setCol] = useState(2);
 
   const calculateCost = useCallback((goods: PickedGood[]) => {
@@ -69,7 +74,7 @@ const HomeScreen = () => {
         </View>
         <FlatList<Table>
           key={col}
-          data={tables}
+          data={sortedTables}
           horizontal={false}
           numColumns={col}
           renderItem={({ item, index, separators }) => (
