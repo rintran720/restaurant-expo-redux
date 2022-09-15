@@ -98,8 +98,6 @@ const ProductDetailScreen = () => {
     products,
   ]);
 
-  console.log(cost);
-
   return (
     <View style={{ flex: 1 }}>
       <Text style={styles.label}>No.</Text>
