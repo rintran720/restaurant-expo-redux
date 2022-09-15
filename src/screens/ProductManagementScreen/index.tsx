@@ -107,8 +107,12 @@ const ProductManagementScreen = () => {
                 marginLeft: 10,
               }}
             >
-              <Text style={{ fontSize: 16, marginTop: 4 }}>{item.name}</Text>
-              <Text style={{ fontSize: 14, marginTop: 4 }}>
+              <Text style={{ fontSize: 16, marginTop: 5, fontWeight: '500' }}>
+                {item.name}
+              </Text>
+              <Text
+                style={{ fontSize: 14, marginTop: 10, fontStyle: 'italic' }}
+              >
                 {item.cost.toFixed(2).toString().concat(' €')}
               </Text>
             </View>
