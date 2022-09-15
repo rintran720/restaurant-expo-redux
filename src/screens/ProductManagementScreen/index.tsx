@@ -1,47 +1,55 @@
-import { tablesSelector } from '@state/table/selector';
+import { productsSelector } from '@state/product/selector';
 import React, { useCallback, useMemo } from 'react';
 import {
   Alert,
   FlatList,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 
 import { navigate } from '../../navigation/Navigation';
+import { productActions } from '../../state/product';
+import { Product } from '../../state/product/types';
 import { useAppDispatch, useAppSelector } from '../../state/store';
-import { tableActions } from '../../state/table';
-import { Table } from '../../state/table/types';
-import { getTableName } from '../../utils/getTableName';
 
 const ProductManagementScreen = () => {
-  const tables: Table[] = useAppSelector(tablesSelector);
-  const sortedTables = useMemo(
-    () => [...tables].sort((a, b) => a.tableId - b.tableId),
-    [tables],
-  );
+  const [text, onChangeText] = React.useState('');
+
+  const products: Product[] = useAppSelector(productsSelector);
+  const sortedProducts = useMemo(() => {
+    if (text.length !== 0) {
+      return [...products]
+        .filter((p) => p.productId.includes(text))
+        .sort((a, b) => b.productId.localeCompare(a.productId));
+    } else {
+      return products;
+    }
+  }, [products, text]);
 
   const dispatch = useAppDispatch();
 
-  const onCreateTable = useCallback(() => {
-    navigate('TableDetail', {
+  const onCreateProduct = useCallback(() => {
+    navigate('ProductDetail', {
       action: 'CREATE',
     });
   }, []);
 
-  const onEditTable = useCallback((table: Table) => {
-    navigate('TableDetail', {
+  const onEditProduct = useCallback((product: Product) => {
+    navigate('ProductDetail', {
       action: 'EDIT',
-      table,
+      product,
     });
   }, []);
 
-  const onDeleteTable = useCallback(
-    (table: Table) => {
+  const onDeleteProduct = useCallback(
+    (product: Product) => {
       Alert.alert(
-        `Delete table ${getTableName(table)}`,
-        'When you delete this table current orders will be deleted',
+        `Delete product ${product.name}`,
+        'When you delete this product current orders will be deleted',
         [
           {
             text: 'Cancel',
@@ -51,7 +59,7 @@ const ProductManagementScreen = () => {
           {
             text: 'OK',
             onPress: () =>
-              dispatch(tableActions.deleteTable({ id: table.tableId })),
+              dispatch(productActions.deleteProduct({ id: product.productId })),
           },
         ],
       );
@@ -61,76 +69,107 @@ const ProductManagementScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.create_w}>
-        <TouchableOpacity style={styles.create} onPress={onCreateTable}>
-          <Text style={{ fontSize: 16 }}>Create</Text>
-        </TouchableOpacity>
-      </View>
-      <FlatList<Table>
-        data={sortedTables}
+      <FlatList<Product>
+        data={sortedProducts}
         horizontal={false}
         renderItem={({ item, index, separators }) => (
           <TouchableOpacity
             style={{
               padding: 10,
+              margin: 10,
               flex: 1,
+              display: 'flex',
+              flexDirection: 'row',
+              borderRadius: 10,
+              backgroundColor: '#eee',
             }}
             key={item.name}
           >
             <View
               style={{
-                flex: 1,
-                height: 80,
-                borderRadius: 10,
-                backgroundColor: '#eee',
-                display: 'flex',
-                flexDirection: 'column',
+                height: '100%',
+                minWidth: 36,
+                justifyContent: 'center',
                 alignItems: 'center',
               }}
             >
-              <Text style={{ fontSize: 16, marginTop: 4 }}>
-                {getTableName(item)}
+              <Text style={{ color: '#72BDA3', fontWeight: 'bold' }}>
+                {item.productId}
               </Text>
-              <View style={{ flexDirection: 'row', height: 32, marginTop: 20 }}>
-                <TouchableOpacity
-                  onPress={() => {
-                    onEditTable(item);
-                  }}
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 10,
-                    borderWidth: 1,
-                    marginHorizontal: 10,
-                    backgroundColor: '#ddd',
-                    borderColor: '#44CFCB',
-                  }}
-                >
-                  <Text style={{ fontSize: 16, color: '#44CFCB' }}>Edit</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    onDeleteTable(item);
-                  }}
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 10,
-                    borderWidth: 1,
-                    marginHorizontal: 10,
-                    backgroundColor: '#ddd',
-                    borderColor: '#D56062',
-                  }}
-                >
-                  <Text style={{ fontSize: 16, color: '#D56062' }}>Delete</Text>
-                </TouchableOpacity>
-              </View>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                marginLeft: 10,
+              }}
+            >
+              <Text style={{ fontSize: 16, marginTop: 4 }}>{item.name}</Text>
+              <Text style={{ fontSize: 14, marginTop: 4 }}>
+                {item.cost.toFixed(2).toString().concat(' €')}
+              </Text>
+            </View>
+            <View style={{ flexDirection: 'column' }}>
+              <TouchableOpacity
+                onPress={() => {
+                  onEditProduct(item);
+                }}
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 10,
+                  borderWidth: 1,
+                  backgroundColor: '#ddd',
+                  borderColor: '#44CFCB',
+                  paddingHorizontal: 16,
+                  paddingVertical: 5,
+                }}
+              >
+                <Text style={{ fontSize: 16, color: '#44CFCB' }}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  onDeleteProduct(item);
+                }}
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 10,
+                  borderWidth: 1,
+                  backgroundColor: '#ddd',
+                  borderColor: '#D56062',
+                  paddingHorizontal: 16,
+                  paddingVertical: 5,
+                  marginTop: 5,
+                }}
+              >
+                <Text style={{ fontSize: 16, color: '#D56062' }}>Delete</Text>
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         )}
       />
+      <KeyboardAvoidingView>
+        <View style={styles.create_w}>
+          <TouchableOpacity style={styles.create} onPress={onCreateProduct}>
+            <Text style={{ fontSize: 16 }}>Create</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.create_w}>
+          <TextInput
+            style={styles.search}
+            onChangeText={onChangeText}
+            placeholder={'Code'}
+            value={text}
+            onSubmitEditing={() => {
+              console.log(text);
+            }}
+          />
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -144,9 +183,10 @@ const styles = StyleSheet.create({
   item: {
     padding: 10,
     fontSize: 18,
-    height: 44,
+    display: 'flex',
+    flexDirection: 'row',
   },
-  table_count: {
+  product_count: {
     fontSize: 16,
     fontWeight: '700',
     padding: 10,
@@ -180,6 +220,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     backgroundColor: '#44CFCB',
+  },
+  search: {
+    width: '100%',
+    height: 44,
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#777',
   },
 });
 

@@ -55,8 +55,24 @@ const productSlice = createSlice({
     pop() {
       // do something
     },
-    push(state, action: PayloadAction<Product>) {
+    createProduct(state, action: PayloadAction<Product>) {
       state.products.push(action.payload);
+    },
+    updateProduct(state, action: PayloadAction<Product & { id: string }>) {
+      const { id, ...product } = action.payload;
+      state.products = state.products.map((tb) => {
+        if (tb.productId === id) {
+          return product;
+        }
+        return tb;
+      });
+    },
+    deleteProduct(state, action: PayloadAction<{ id: string }>) {
+      const { id } = action.payload;
+      const index = state.products.findIndex((tb) => tb.productId === id);
+      if (index > -1) {
+        state.products.splice(index, 1);
+      }
     },
   },
   extraReducers: (builder) => {},

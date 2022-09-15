@@ -61,11 +61,6 @@ const TableManagementScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.create_w}>
-        <TouchableOpacity style={styles.create} onPress={onCreateTable}>
-          <Text style={{ fontSize: 16 }}>Create</Text>
-        </TouchableOpacity>
-      </View>
       <FlatList<Table>
         data={sortedTables}
         horizontal={false}
@@ -80,7 +75,6 @@ const TableManagementScreen = () => {
             <View
               style={{
                 flex: 1,
-                height: 80,
                 borderRadius: 10,
                 backgroundColor: '#eee',
                 display: 'flex',
@@ -88,10 +82,10 @@ const TableManagementScreen = () => {
                 alignItems: 'center',
               }}
             >
-              <Text style={{ fontSize: 16, marginTop: 4 }}>
+              <Text style={{ fontSize: 16, marginTop: 5 }}>
                 {getTableName(item)}
               </Text>
-              <View style={{ flexDirection: 'row', height: 32, marginTop: 20 }}>
+              <View style={{ flexDirection: 'row', height: 32, margin: 10 }}>
                 <TouchableOpacity
                   onPress={() => {
                     onEditTable(item);
@@ -131,6 +125,11 @@ const TableManagementScreen = () => {
           </TouchableOpacity>
         )}
       />
+      <View style={styles.create_w}>
+        <TouchableOpacity style={styles.create} onPress={onCreateTable}>
+          <Text style={{ fontSize: 16 }}>Create</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
