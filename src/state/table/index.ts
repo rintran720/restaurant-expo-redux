@@ -1,28 +1,23 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Product } from '../product/types';
-import { ITableState, Table, TableStatus } from './types';
+import { ITableState, Table } from './types';
 
 const initialState: ITableState = {
   tables: [
     {
       tableId: 1,
       name: 'Drink',
-      status: TableStatus.DEFAULT,
       products: [],
     },
     {
       tableId: 2,
       name: 'Drink 2',
-      status: TableStatus.DEFAULT,
       products: [],
     },
     {
       tableId: 3,
       name: 'Drink 3',
-      status: TableStatus.FILLED,
-      start: new Date(),
-      end: new Date(),
       products: [
         {
           productId: '123',
@@ -77,7 +72,6 @@ const initialState: ITableState = {
     {
       tableId: 4,
       name: 'Drink 4',
-      status: TableStatus.DEFAULT,
       products: [],
     },
   ],

@@ -29,7 +29,7 @@ const ProductDetailScreen = () => {
     product?.name !== undefined ? product.name : '',
   );
   const [cost, onChangeCost] = React.useState(
-    product?.cost !== undefined ? product.cost : '',
+    product?.cost !== undefined ? product.cost.toString() : '',
   );
   const products = useSelector(productsSelector);
   const dispatch = useAppDispatch();
@@ -38,7 +38,7 @@ const ProductDetailScreen = () => {
     switch (action) {
       case 'CREATE': {
         const parsedProductId = no;
-        const parsedCost = parseInt(cost, 10);
+        const parsedCost = Number(cost);
         if (!parsedProductId) {
           Alert.alert('Have to enter code of product');
         } else if (parsedCost < 0) {
@@ -61,7 +61,7 @@ const ProductDetailScreen = () => {
       }
       case 'EDIT': {
         const parsedProductId = no;
-        const parsedCost = parseInt(cost, 10);
+        const parsedCost = Number(cost);
         if (!parsedProductId) {
           Alert.alert('Have to enter number of product' + parsedProductId);
         } else if (parsedCost < 0) {

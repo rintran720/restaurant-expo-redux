@@ -168,9 +168,6 @@ const ProductManagementScreen = () => {
             onChangeText={onChangeText}
             placeholder={'Code'}
             value={text}
-            onSubmitEditing={() => {
-              console.log(text);
-            }}
           />
         </View>
       </KeyboardAvoidingView>

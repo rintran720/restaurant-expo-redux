@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { Table, TableStatus } from '../../state/table/types';
+import { Table } from '../../state/table/types';
 
 const TableDetailScreen = () => {
   const navigator = useNavigation();
@@ -34,7 +34,7 @@ const TableDetailScreen = () => {
   const onCreateTable = useCallback(() => {
     switch (action) {
       case 'CREATE': {
-        const parsedTableId = parseInt(no, 10);
+        const parsedTableId = Number(no);
         if (!parsedTableId) {
           Alert.alert('Have to enter number of table');
         } else if (!tables.find((t: Table) => t.tableId === parsedTableId)) {
@@ -42,7 +42,6 @@ const TableDetailScreen = () => {
             tableActions.createTable({
               tableId: parsedTableId,
               name,
-              status: TableStatus.DEFAULT,
               products: [],
             }),
           );
@@ -53,7 +52,7 @@ const TableDetailScreen = () => {
         break;
       }
       case 'EDIT': {
-        const parsedTableId = parseInt(no, 10);
+        const parsedTableId = Number(no);
         if (!parsedTableId) {
           Alert.alert('Have to enter number of table' + parsedTableId);
         } else if (tables.find((t: Table) => t.tableId === table?.tableId)) {
@@ -62,7 +61,6 @@ const TableDetailScreen = () => {
               id: table?.tableId,
               tableId: parsedTableId,
               name,
-              status: TableStatus.DEFAULT,
               products: table.products || [],
             }),
           );

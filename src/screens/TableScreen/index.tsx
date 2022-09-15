@@ -38,13 +38,23 @@ const TableScreen = () => {
 
   const calculateCost = useMemo(() => {
     let cost = 0;
-    if (table?.products?.length > 0) {
-      table.products?.forEach((pp: PickedProduct) => {
+    if (productsOfTable?.length > 0) {
+      productsOfTable?.forEach((pp: PickedProduct) => {
         cost = pp.cost * pp.qty + cost;
       });
     }
     return cost;
-  }, [table]);
+  }, [productsOfTable]);
+
+  const calculateTotalItem = useMemo(() => {
+    let total = 0;
+    if (productsOfTable?.length > 0) {
+      productsOfTable?.forEach((pp: PickedProduct) => {
+        total = pp.qty + total;
+      });
+    }
+    return total;
+  }, [productsOfTable]);
 
   const [text, onChangeText] = React.useState('');
 
@@ -118,12 +128,14 @@ const TableScreen = () => {
         >
           <Text
             style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}
-          >{`Item: ${table?.products?.length || 0}`}</Text>
+          >{`Item: ${
+            productsOfTable.length || 0
+          } of ${calculateTotalItem}`}</Text>
           <Text style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}>
             {'Total cost: '.concat(calculateCost.toFixed(2))} €
           </Text>
         </View>
-        {table.products && table?.products?.length > 0 && (
+        {productsOfTable?.length > 0 && (
           <FlatList<PickedProduct>
             style={{ flex: 1, backgroundColor: '#ccc', paddingVertical: 5 }}
             data={productsOfTable}
@@ -231,7 +243,10 @@ const TableScreen = () => {
             onChangeText={onChangeText}
             placeholder={'Code'}
             value={text}
-            onSubmitEditing={() => {}}
+            onSubmitEditing={() => {
+              onAddItem(foundedProduct);
+              onChangeText('');
+            }}
           />
           <Text style={styles.nameOfProduct}>
             {foundedProduct?.name || '----'}

@@ -12,12 +12,9 @@ export enum TableStatus {
 export interface Table {
   tableId: number;
   name: string;
-  start?: Date;
-  end?: Date;
   products: PickedProduct[];
 }
 
 export interface PickedProduct extends Product {
   qty: number;
-  at_time?: Date;
 }
