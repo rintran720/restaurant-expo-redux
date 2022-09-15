@@ -1,8 +1,9 @@
 import { useRoute } from '@react-navigation/native';
 import { productsSelector } from '@state/product/selector';
 import { Product } from '@state/product/types';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
+  Alert,
   Button,
   FlatList,
   Text,
@@ -12,7 +13,11 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 
+import { useAppDispatch } from '../../state/store';
+import { tableActions } from '../../state/table';
+import { tablesSelector } from '../../state/table/selector';
 import { PickedProduct, Table } from '../../state/table/types';
+import { getTableName } from '../../utils/getTableName';
 import { styles } from './styles';
 
 const TableScreen = () => {
@@ -22,6 +27,14 @@ const TableScreen = () => {
   }, [params]);
 
   const products = useSelector(productsSelector);
+  const tables = useSelector(tablesSelector);
+
+  const productsOfTable = useMemo(
+    () =>
+      (tables as Table[]).find((t) => t.tableId === table.tableId)?.products ||
+      [],
+    [table.tableId, tables],
+  );
 
   const calculateCost = useMemo(() => {
     let cost = 0;
@@ -42,6 +55,55 @@ const TableScreen = () => {
       return (products as Product[]).find((p) => p.productId === text);
     }
   }, [products, text]);
+
+  const dispatch = useAppDispatch();
+
+  const onAddItem = useCallback(
+    (item: Product | null | undefined) => {
+      if (item) {
+        dispatch(
+          tableActions.addProduct({
+            id: table.tableId,
+            product: item,
+          }),
+        );
+      }
+    },
+    [dispatch, table.tableId],
+  );
+
+  const onRemoveItem = useCallback(
+    (item: Product) => {
+      if (item) {
+        dispatch(
+          tableActions.removeProduct({
+            id: table.tableId,
+            product: item,
+          }),
+        );
+      }
+    },
+    [dispatch, table.tableId],
+  );
+
+  const onCheckout = useCallback(() => {
+    Alert.alert(
+      `Checkout table ${getTableName(table)}`,
+      'When you checkout this table current orders will be deleted',
+      [
+        {
+          text: 'Cancel',
+          // onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () =>
+            dispatch(tableActions.checkoutTable({ id: table.tableId })),
+        },
+      ],
+    );
+  }, [dispatch, table]);
 
   if (table) {
     return (
@@ -64,7 +126,7 @@ const TableScreen = () => {
         {table.products && table?.products?.length > 0 && (
           <FlatList<PickedProduct>
             style={{ flex: 1, backgroundColor: '#ccc', paddingVertical: 5 }}
-            data={(table as Table).products}
+            data={productsOfTable}
             renderItem={({ item, index, separators }) => (
               <TouchableOpacity
                 style={{
@@ -130,6 +192,7 @@ const TableScreen = () => {
                 </View>
                 <View style={{ flexDirection: 'row', marginLeft: 8 }}>
                   <TouchableOpacity
+                    onPress={() => onRemoveItem(item)}
                     style={{
                       width: 32,
                       height: 32,
@@ -143,6 +206,7 @@ const TableScreen = () => {
                     <Text>-</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
+                    onPress={() => onAddItem(item)}
                     style={{
                       width: 32,
                       height: 32,
@@ -167,14 +231,18 @@ const TableScreen = () => {
             onChangeText={onChangeText}
             placeholder={'Code'}
             value={text}
-            onSubmitEditing={() => {
-              console.log(text);
-            }}
+            onSubmitEditing={() => {}}
           />
           <Text style={styles.nameOfProduct}>
             {foundedProduct?.name || '----'}
           </Text>
-          <TouchableOpacity style={styles.addProduct}>
+          <TouchableOpacity
+            onPress={() => {
+              onAddItem(foundedProduct);
+              onChangeText('');
+            }}
+            style={styles.addProduct}
+          >
             <Text>Add</Text>
           </TouchableOpacity>
         </View>
@@ -202,6 +270,7 @@ const TableScreen = () => {
             <Text style={{ fontSize: 16 }}>Cancel</Text>
           </TouchableOpacity> */}
           <TouchableOpacity
+            onPress={onCheckout}
             style={{
               flex: 1,
               justifyContent: 'center',

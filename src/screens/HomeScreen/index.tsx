@@ -1,6 +1,6 @@
 import { useAppSelector } from '@state/store';
 import { tablesSelector } from '@state/table/selector';
-import { PickedProduct, Table, TableStatus } from '@state/table/types';
+import { PickedProduct, Table } from '@state/table/types';
 import React, { useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
@@ -94,7 +94,7 @@ const HomeScreen = () => {
                   height: 80,
                   borderRadius: 10,
                   backgroundColor:
-                    item.status === TableStatus.DEFAULT ? '#eee' : '#44CFCB',
+                    item.products.length === 0 ? '#eee' : '#44CFCB',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',

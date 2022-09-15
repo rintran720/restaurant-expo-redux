@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { Product } from '../product/types';
 import { ITableState, Table, TableStatus } from './types';
 
 const initialState: ITableState = {
@@ -8,11 +9,13 @@ const initialState: ITableState = {
       tableId: 1,
       name: 'Drink',
       status: TableStatus.DEFAULT,
+      products: [],
     },
     {
       tableId: 2,
       name: 'Drink 2',
       status: TableStatus.DEFAULT,
+      products: [],
     },
     {
       tableId: 3,
@@ -75,6 +78,7 @@ const initialState: ITableState = {
       tableId: 4,
       name: 'Drink 4',
       status: TableStatus.DEFAULT,
+      products: [],
     },
   ],
 };
@@ -104,6 +108,54 @@ const tableSlice = createSlice({
       const index = state.tables.findIndex((tb) => tb.tableId === id);
       if (index > -1) {
         state.tables.splice(index, 1);
+      }
+    },
+    checkoutTable(state, action: PayloadAction<{ id: number }>) {
+      const { id } = action.payload;
+      const index = state.tables.findIndex((tb) => tb.tableId === id);
+      if (index > -1) {
+        state.tables[index].products = [];
+      }
+    },
+    addProduct(state, action: PayloadAction<{ id: number; product: Product }>) {
+      const { id, product } = action.payload;
+      const index = state.tables.findIndex((tb) => tb.tableId === id);
+      if (index > -1) {
+        const products = state.tables[index].products;
+        if (products) {
+          const prodIndex = products.findIndex(
+            (p) => p.productId === product.productId,
+          );
+          if (prodIndex > -1) {
+            state.tables[index].products[prodIndex].qty =
+              state.tables[index].products[prodIndex].qty + 1;
+          } else {
+            state.tables[index].products.push({ ...product, qty: 1 });
+          }
+        }
+      }
+    },
+    removeProduct(
+      state,
+      action: PayloadAction<{ id: number; product: Product }>,
+    ) {
+      const { id, product } = action.payload;
+      const index = state.tables.findIndex((tb) => tb.tableId === id);
+      if (index > -1) {
+        const products = state.tables[index].products;
+        if (products) {
+          const prodIndex = products.findIndex(
+            (p) => p.productId === product.productId,
+          );
+          if (prodIndex > -1) {
+            if (state.tables[index].products[prodIndex].qty === 1) {
+              state.tables[index].products.splice(prodIndex, 1);
+            } else if (state.tables[index].products[prodIndex].qty > 1) {
+              state.tables[index].products[prodIndex].qty =
+                state.tables[index].products[prodIndex].qty - 1;
+            }
+          }
+        }
       }
     },
   },

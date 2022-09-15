@@ -43,6 +43,7 @@ const TableDetailScreen = () => {
               tableId: parsedTableId,
               name,
               status: TableStatus.DEFAULT,
+              products: [],
             }),
           );
           navigator.goBack();
@@ -62,6 +63,7 @@ const TableDetailScreen = () => {
               tableId: parsedTableId,
               name,
               status: TableStatus.DEFAULT,
+              products: table.products || [],
             }),
           );
           navigator.goBack();
