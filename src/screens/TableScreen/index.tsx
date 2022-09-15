@@ -63,101 +63,99 @@ const TableScreen = () => {
         </View>
         {table.products && table?.products?.length > 0 && (
           <FlatList<PickedProduct>
-            style={{ flex: 1 }}
+            style={{ flex: 1, backgroundColor: '#ccc', paddingVertical: 5 }}
             data={(table as Table).products}
             renderItem={({ item, index, separators }) => (
               <TouchableOpacity
                 style={{
-                  paddingVertical: 5,
-                  paddingHorizontal: 10,
+                  marginHorizontal: 10,
+                  marginVertical: 5,
                   flex: 1,
+                  borderRadius: 10,
+                  backgroundColor: '#eee',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}
                 key={item.name}
                 onPress={() => {}}
               >
                 <View
                   style={{
-                    flex: 1,
-                    height: 60,
-                    borderRadius: 10,
-                    backgroundColor: '#eee',
-                    display: 'flex',
-                    flexDirection: 'row',
+                    height: '100%',
+                    width: 30,
+                    backgroundColor: '#72BDA3',
+                    borderBottomLeftRadius: 10,
+                    borderTopLeftRadius: 10,
+                    justifyContent: 'center',
                     alignItems: 'center',
                   }}
                 >
-                  <View
+                  <Text>{index + 1}</Text>
+                </View>
+                <View style={{ flex: 1, padding: 10 }}>
+                  <Text style={{ fontSize: 14, fontWeight: '700' }}>
+                    {item.name}
+                  </Text>
+                  <Text
                     style={{
-                      height: '100%',
-                      width: 30,
-                      backgroundColor: '#72BDA3',
-                      borderBottomLeftRadius: 10,
-                      borderTopLeftRadius: 10,
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      fontSize: 14,
+                      fontWeight: '200',
+                      marginTop: 5,
+                      fontStyle: 'italic',
                     }}
                   >
-                    <Text>{index + 1}</Text>
-                  </View>
-                  <View style={{ flex: 1, marginLeft: 8 }}>
-                    <Text style={{ fontSize: 14, fontWeight: '700' }}>
-                      {item.name}
-                    </Text>
-                    <Text
-                      style={{ fontSize: 12, fontWeight: '200', marginTop: 4 }}
-                    >
-                      {item.cost}
-                    </Text>
-                  </View>
-                  <View
+                    {item.cost}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: 32,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text>{item.qty || '-'}</Text>
+                </View>
+                <View
+                  style={{
+                    width: 64,
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                  }}
+                >
+                  <Text style={{ fontSize: 16 }}>
+                    {(Number(item.qty) * Number(item.cost)).toFixed(2)} €
+                  </Text>
+                </View>
+                <View style={{ flexDirection: 'row', marginLeft: 8 }}>
+                  <TouchableOpacity
                     style={{
                       width: 32,
+                      height: 32,
                       justifyContent: 'center',
                       alignItems: 'center',
+                      borderWidth: 1,
+                      borderColor: '#555',
+                      borderRadius: 10,
                     }}
                   >
-                    <Text>{item.qty || '-'}</Text>
-                  </View>
-                  <View
+                    <Text>-</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={{
-                      width: 64,
+                      width: 32,
+                      height: 32,
                       justifyContent: 'center',
-                      alignItems: 'flex-end',
+                      alignItems: 'center',
+                      borderWidth: 1,
+                      borderColor: '#555',
+                      borderRadius: 10,
+                      marginHorizontal: 5,
                     }}
                   >
-                    <Text style={{ fontSize: 16 }}>
-                      {(Number(item.qty) * Number(item.cost)).toFixed(2)} €
-                    </Text>
-                  </View>
-                  <View style={{ flexDirection: 'row', marginLeft: 8 }}>
-                    <TouchableOpacity
-                      style={{
-                        width: 32,
-                        height: 32,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderWidth: 1,
-                        borderColor: '#555',
-                        borderRadius: 10,
-                      }}
-                    >
-                      <Text>-</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={{
-                        width: 32,
-                        height: 32,
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        borderWidth: 1,
-                        borderColor: '#555',
-                        borderRadius: 10,
-                        marginHorizontal: 5,
-                      }}
-                    >
-                      <Text>+</Text>
-                    </TouchableOpacity>
-                  </View>
+                    <Text>+</Text>
+                  </TouchableOpacity>
                 </View>
               </TouchableOpacity>
             )}

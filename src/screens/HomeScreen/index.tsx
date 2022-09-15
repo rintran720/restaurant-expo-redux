@@ -103,7 +103,7 @@ const HomeScreen = () => {
                 <Text style={{ fontSize: 15, marginTop: 4 }}>
                   {getTableName(item)}
                 </Text>
-                <Text style={{ fontSize: 22, marginTop: 10 }}>
+                <Text style={{ fontSize: 20, marginTop: 10 }}>
                   {item.products
                     ? calculateCost(item.products).toFixed(2).concat(' €')
                     : '-'}
