@@ -23,7 +23,7 @@ const TableDetailScreen = () => {
   }, [params]);
 
   const [no, onChangeNo] = React.useState(
-    table?.no !== undefined ? table.no : '',
+    table?.tableId !== undefined ? table.tableId.toString() : '',
   );
   const [name, onChangeName] = React.useState(
     table?.name !== undefined ? table.name : '',
@@ -32,37 +32,47 @@ const TableDetailScreen = () => {
   const dispatch = useAppDispatch();
 
   const onCreateTable = useCallback(() => {
-    if (action === 'CREATE') {
-      if (no.length === 0) {
-        Alert.alert('Have to enter number of table');
-      } else if (!tables.find((t: Table) => t.no === no)) {
-        dispatch(
-          tableActions.createTable({
-            no,
-            name,
-            status: TableStatus.DEFAULT,
-          }),
-        );
-      } else {
-        Alert.alert('The number of table is used');
+    switch (action) {
+      case 'CREATE': {
+        const parsedTableId = parseInt(no, 10);
+        if (!parsedTableId) {
+          Alert.alert('Have to enter number of table');
+        } else if (!tables.find((t: Table) => t.tableId === parsedTableId)) {
+          dispatch(
+            tableActions.createTable({
+              tableId: parsedTableId,
+              name,
+              status: TableStatus.DEFAULT,
+            }),
+          );
+          navigator.goBack();
+        } else {
+          Alert.alert('The number of table is used');
+        }
+        break;
       }
-    } else if (action === 'EDIT') {
-      if (no.length === 0) {
-        Alert.alert('Have to enter number of table');
-      } else if (tables.find((t: Table) => t.no === table?.no)) {
-        dispatch(
-          tableActions.updateTable({
-            id: table?.no,
-            no,
-            name,
-            status: TableStatus.DEFAULT,
-          }),
-        );
-      } else {
-        Alert.alert('The number of table is not existed');
+      case 'EDIT': {
+        const parsedTableId = parseInt(no, 10);
+        if (!parsedTableId) {
+          Alert.alert('Have to enter number of table' + parsedTableId);
+        } else if (tables.find((t: Table) => t.tableId === table?.tableId)) {
+          dispatch(
+            tableActions.updateTable({
+              id: table?.tableId,
+              tableId: parsedTableId,
+              name,
+              status: TableStatus.DEFAULT,
+            }),
+          );
+          navigator.goBack();
+        } else {
+          Alert.alert('The number of table is not supported');
+        }
+        break;
       }
-    } else {
-      navigator.goBack();
+      default: {
+        navigator.goBack();
+      }
     }
   }, [action, dispatch, name, navigator, no, table, tables]);
 

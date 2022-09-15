@@ -10,9 +10,9 @@ export enum TableStatus {
 }
 
 export interface Table {
-  no: string;
+  tableId: number;
   name: string;
-  status: TableStatus;
+  status?: TableStatus;
   start?: Date;
   end?: Date;
   goods?: PickedGood[];
