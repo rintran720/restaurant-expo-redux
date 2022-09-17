@@ -74,6 +74,12 @@ const productSlice = createSlice({
         state.products.splice(index, 1);
       }
     },
+    importProduct(state, action: PayloadAction<{ data: Product[] }>) {
+      const { data } = action.payload;
+      if (data.length > 0) {
+        state.products = [...data];
+      }
+    },
   },
   extraReducers: (builder) => {},
 });

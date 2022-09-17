@@ -18,6 +18,7 @@ export type AppRootParamsList = {
   };
   Report: undefined;
   Setting: undefined;
+  ImportExport: undefined;
 };
 
 export interface IHandleState {

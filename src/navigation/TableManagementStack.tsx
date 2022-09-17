@@ -24,7 +24,7 @@ export default function TableManagementStack() {
               route?.params?.action === 'CREATE'
                 ? 'Create new product'
                 : route?.params?.action === 'EDIT'
-                ? getTableName(route?.params?.table)
+                ? getTableName(route?.params?.table).toString()
                 : 'Table detail',
             headerShown: true,
           };

@@ -12,13 +12,16 @@ export default function HomeStack() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ headerShown: true, title: 'Home' }}
+        options={{
+          headerShown: true,
+          title: 'Home',
+        }}
       />
       <Stack.Screen
         name="Table"
         component={TableScreen}
         options={({ route }) => {
-          return { title: getTableName(route?.params?.table) };
+          return { title: getTableName(route?.params?.table).toString() };
         }}
       />
     </Stack.Navigator>

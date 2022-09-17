@@ -7,26 +7,18 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "packagerOpts": {
-      "sourceExts": [
-        "js",
-        "json",
-        "ts",
-        "tsx",
-        "jsx",
-        "vue"
-      ]
+      "sourceExts": ["js", "json", "ts", "tsx", "jsx", "vue"]
     },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
