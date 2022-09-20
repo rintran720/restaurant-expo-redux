@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProductDetailScreen from '@screens/ProductDetailScreen';
 import ProductManagementScreen from '@screens/ProductManagementScreen';
 
+import DrawerMenuButton from '../container/DrawerMenuButton';
+
 const Stack = createNativeStackNavigator<AppRootParamsList>();
 
 export default function ProductManagementStack() {
@@ -11,7 +13,11 @@ export default function ProductManagementStack() {
       <Stack.Screen
         name="ProductManagement"
         component={ProductManagementScreen}
-        options={{ headerShown: true, title: 'Product CMS' }}
+        options={{
+          headerShown: true,
+          title: 'Product CMS',
+          headerLeft: (p) => <DrawerMenuButton />,
+        }}
       />
       <Stack.Screen
         name="ProductDetail"

@@ -13,7 +13,10 @@ export default function DrawerNavigation() {
       <Drawer.Screen
         name="HomeStack"
         component={HomeStack}
-        options={{ headerShown: false, title: 'Home' }}
+        options={{
+          headerShown: false,
+          title: 'Home',
+        }}
       />
       <Drawer.Screen
         name="TableManagement"

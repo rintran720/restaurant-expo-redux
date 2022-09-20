@@ -1601,7 +1601,7 @@
 
 "@expo/vector-icons@^13.0.0":
   version "13.0.0"
-  resolved "https://registry.npmjs.org/@expo/vector-icons/-/vector-icons-13.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-13.0.0.tgz#e2989b85e95a82bce216f88cf8fb583ab050ec95"
   integrity sha512-TI+l71+5aSKnShYclFa14Kum+hQMZ86b95SH6tQUG3qZEmLTarvWpKwqtTwQKqvlJSJrpFiSFu3eCuZokY6zWA==
 
 "@expo/xcpretty@^4.2.1":
@@ -2789,11 +2789,6 @@ big-integer@1.6.x:
   version "1.6.51"
   resolved "https://registry.npmjs.org/big-integer/-/big-integer-1.6.51.tgz"
   integrity sha512-GPEid2Y9QU1Exl1rpO9B2IPJGHPSupF5GnVIP0blYvNOMer2bTvSWs1jGOUg04hTmu67nmLsQ9TBo1puaotBHg==
-
-bignumber.js@8.1.1:
-  version "8.1.1"
-  resolved "https://registry.npmjs.org/bignumber.js/-/bignumber.js-8.1.1.tgz"
-  integrity sha512-QD46ppGintwPGuL1KqmwhR0O+N2cZUg8JG/VzwI2e28sM9TqHjQB10lI4QAaMHVbLzwVLLAwEglpKPViWX+5NQ==
 
 bl@^4.1.0:
   version "4.1.0"
@@ -6326,13 +6321,6 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
-
-moneysafe@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/moneysafe/-/moneysafe-2.2.1.tgz"
-  integrity sha512-eGw5x1KfBv2ku3hu1NdtoWq/SyZX7ECALWVmTK0SaHAsU+vFGJdQl2sFCdV3Ubezz5QC0nYRmK5QTn6hkLC7fQ==
-  dependencies:
-    bignumber.js "8.1.1"
 
 ms@2.0.0:
   version "2.0.0"

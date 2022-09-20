@@ -4,6 +4,8 @@ import HomeScreen from '@screens/HomeScreen';
 import TableScreen from '@screens/TableScreen';
 import { getTableName } from '@utils/getTableName';
 
+import DrawerMenuButton from '../container/DrawerMenuButton';
+
 const Stack = createNativeStackNavigator<AppRootParamsList>();
 
 export default function HomeStack() {
@@ -15,6 +17,7 @@ export default function HomeStack() {
         options={{
           headerShown: true,
           title: 'Home',
+          headerLeft: () => <DrawerMenuButton />,
         }}
       />
       <Stack.Screen

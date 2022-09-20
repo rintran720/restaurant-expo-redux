@@ -5,6 +5,7 @@ import { Alert, Platform, Text, TouchableOpacity, View } from 'react-native';
 
 import { productActions } from '../../state/product';
 import { productsSelector } from '../../state/product/selector';
+import { Product } from '../../state/product/types';
 import { useAppDispatch, useAppSelector } from '../../state/store';
 
 const ImportExportScreen = () => {
@@ -18,9 +19,9 @@ const ImportExportScreen = () => {
         if (type === 'success') {
           FileSystem.readAsStringAsync(uri).then((content) => {
             try {
-              const data = JSON.parse(content);
+              const data: Product[] = JSON.parse(content);
               if (data?.length > 0) {
-                dispatch(productActions.importProduct(data));
+                dispatch(productActions.importProduct({ data }));
               }
             } catch (e) {
               Alert.alert('Can not import this file');
@@ -40,9 +41,12 @@ const ImportExportScreen = () => {
     // Check if permission granted
     if (permissions.granted) {
       // Save data to newly created file
+      const data = JSON.stringify(products);
+      console.log(data);
+
       await FileSystem.writeAsStringAsync(
         FileSystem.documentDirectory + 'products.json',
-        JSON.stringify(products),
+        data,
         {
           encoding: FileSystem.EncodingType.UTF8,
         },
@@ -52,6 +56,7 @@ const ImportExportScreen = () => {
           console.log('e', e);
         });
     } else {
+      console.log(permissions);
       Alert.alert('Do not have permission to save file');
     }
   }, [products]);

@@ -2,6 +2,7 @@ import { AppRootParamsList } from '@interfaces/type';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TableManagementScreen from '@screens/TableManagementScreen';
 
+import DrawerMenuButton from '../container/DrawerMenuButton';
 import TableDetailScreen from '../screens/TableDetailScreen';
 import { getTableName } from '../utils/getTableName';
 
@@ -13,7 +14,11 @@ export default function TableManagementStack() {
       <Stack.Screen
         name="TableManagement"
         component={TableManagementScreen}
-        options={{ headerShown: true, title: 'Table CMS' }}
+        options={{
+          headerShown: true,
+          title: 'Table CMS',
+          headerLeft: () => <DrawerMenuButton />,
+        }}
       />
       <Stack.Screen
         name="TableDetail"
