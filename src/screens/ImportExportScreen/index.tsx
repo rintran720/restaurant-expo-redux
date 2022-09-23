@@ -17,16 +17,19 @@ const ImportExportScreen = () => {
     })
       .then(({ type, uri }: any) => {
         if (type === 'success') {
-          FileSystem.readAsStringAsync(uri).then((content) => {
-            try {
-              const data: Product[] = JSON.parse(content);
-              if (data?.length > 0) {
-                dispatch(productActions.importProduct({ data }));
+          FileSystem.readAsStringAsync(uri)
+            .then((content) => {
+              try {
+                const data: Product[] = JSON.parse(content);
+                if (data?.length > 0) {
+                  dispatch(productActions.importProduct({ data }));
+                  Alert.alert('Import success!');
+                }
+              } catch (e) {
+                Alert.alert('Can not import this file');
               }
-            } catch (e) {
-              Alert.alert('Can not import this file');
-            }
-          });
+            })
+            .catch((e) => Alert.alert('Can not import'));
         }
       })
       .catch(console.log);
@@ -37,26 +40,30 @@ const ImportExportScreen = () => {
     const permissions =
       Platform.OS === 'android'
         ? await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
-        : { granted: true };
-    // Check if permission granted
+        : { granted: true, directoryUri: FileSystem.documentDirectory };
+
     if (permissions.granted) {
+      // Gets SAF URI from response
+      const uri = permissions.directoryUri;
+      console.log('uri', uri);
       // Save data to newly created file
       const data = JSON.stringify(products);
-      console.log(data);
-
-      await FileSystem.writeAsStringAsync(
-        FileSystem.documentDirectory + 'products.json',
+      // Alert.alert('alert', FileSystem.documentDirectory?.toString() || '');
+      FileSystem.writeAsStringAsync(
+        `${FileSystem.documentDirectory}products.json`,
         data,
-        {
-          encoding: FileSystem.EncodingType.UTF8,
-        },
       )
-        .then((r) => console.log('result', r))
+        .then((r) =>
+          Alert.alert(
+            'Export success!',
+            `File saved at ${FileSystem.documentDirectory}products.json`,
+          ),
+        )
         .catch((e) => {
           console.log('e', e);
         });
     } else {
-      console.log(permissions);
+      console.log('permissions', permissions);
       Alert.alert('Do not have permission to save file');
     }
   }, [products]);
