@@ -17,6 +17,14 @@ export const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    borderRadius: 10,
+  },
+  discount: {
+    width: 200,
+    height: 40,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
   },
   nameOfProduct: {
     flex: 1,

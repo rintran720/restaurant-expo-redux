@@ -28,6 +28,8 @@ const TableScreen = () => {
 
   const products = useSelector(productsSelector);
   const tables = useSelector(tablesSelector);
+  const [text, onChangeText] = React.useState('');
+  const [discount, onChangeDiscount] = React.useState('');
 
   const productsOfTable = useMemo(
     () =>
@@ -43,8 +45,12 @@ const TableScreen = () => {
         cost = pp.cost * pp.qty + cost;
       });
     }
-    return cost;
-  }, [productsOfTable]);
+    let _discount = Number(discount);
+    if (_discount > 100 || _discount < 0) {
+      _discount = 0;
+    }
+    return (cost * (100 - _discount)) / 100;
+  }, [discount, productsOfTable]);
 
   const calculateTotalItem = useMemo(() => {
     let total = 0;
@@ -55,8 +61,6 @@ const TableScreen = () => {
     }
     return total;
   }, [productsOfTable]);
-
-  const [text, onChangeText] = React.useState('');
 
   const foundedProduct = useMemo(() => {
     if (text.length === 0) {
@@ -260,6 +264,38 @@ const TableScreen = () => {
           >
             <Text>Add</Text>
           </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: 10,
+          }}
+        >
+          <Text style={{ fontSize: 16 }}>Discount</Text>
+          <TouchableOpacity
+            onPress={() => onChangeDiscount('10')}
+            style={{
+              width: 40,
+              height: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: 1,
+              borderColor: '#555',
+              borderRadius: 10,
+              marginHorizontal: 5,
+            }}
+          >
+            <Text>10</Text>
+          </TouchableOpacity>
+          <TextInput
+            style={styles.discount}
+            onChangeText={onChangeDiscount}
+            placeholder={'Value from 0 to 100'}
+            value={discount}
+          />
         </View>
         <View
           style={{
