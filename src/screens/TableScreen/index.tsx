@@ -1,11 +1,15 @@
 import { useRoute } from '@react-navigation/native';
 import { productsSelector } from '@state/product/selector';
 import { Product } from '@state/product/types';
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
+import moment from 'moment';
 import React, { useCallback, useMemo } from 'react';
 import {
   Alert,
   Button,
   FlatList,
+  Platform,
   Text,
   TextInput,
   TouchableOpacity,
@@ -19,6 +23,83 @@ import { tablesSelector } from '../../state/table/selector';
 import { PickedProduct, Table } from '../../state/table/types';
 import { getTableName } from '../../utils/getTableName';
 import { styles } from './styles';
+
+const generateHtml = (products: PickedProduct[]) => {
+  const time = moment();
+  const code = time.format('HHmmss');
+  const timeDisplay = time.format('YYYY:MM:DD HH:mm:ss');
+  return `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      <style>
+      body {
+          width: 8cm;
+          /* to centre page on screen*/
+          // padding: 10mm;
+          display: flex;
+          flex-direction: column;
+      }
+      #head-title{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+      #code {
+        text-align: left;
+        font-size: 20px;
+        font-family: Helvetica Neue;
+        font-weight: bold;
+  
+      }
+      #time {
+        text-align: right;
+        font-size: 20px;
+        font-family: Helvetica Neue;
+        font-weight: normal;
+      }
+      #content{
+        font-size: 20px;
+      }
+      #product-title{
+        text-align: left;
+        font-size: 20px;
+        font-family: Helvetica Neue;
+        font-weight: normal;
+      }
+      .bold{
+        font-weight: bold;
+      }
+      
+      </style>
+    </head>
+    <body>
+      <div id="head-title">
+        <span id="code">
+          # ${code}
+        </span>
+        <span id="time">1231:31:12 12:21:32</span>
+      </div>
+      <div id="content">
+        <h6 id="product-title">Products</h6>
+        ${products.map((p, index) => {
+          return `<div class="item">
+              <text class="bold">${index + 1}</text>
+              <text>------</text>
+              <text class="bold">${p.qty}x</text>
+              <text>------</text>
+              <text>${p.name}</text>
+            </div>`;
+        })}
+        
+      </div>
+      
+      
+    </body>
+  </html>
+`;
+};
 
 const TableScreen = () => {
   const { params } = useRoute<any>();
@@ -118,6 +199,32 @@ const TableScreen = () => {
       ],
     );
   }, [dispatch, table]);
+
+  // For print
+  const [selectedPrinter, setSelectedPrinter] = React.useState<any>();
+
+  const print = useCallback(async () => {
+    // On iOS/android prints the given html. On web prints the HTML from the current page.
+    const printer: any = { html: generateHtml(productsOfTable) };
+    if (Platform.OS === 'ios') {
+      printer.printerUrl = selectedPrinter?.url; // iOS only
+    }
+    await Print.printAsync(printer);
+  }, [productsOfTable, selectedPrinter?.url]);
+
+  const printToFile = useCallback(async () => {
+    // On iOS/android prints the given html. On web prints the HTML from the current page.
+    const { uri } = await Print.printToFileAsync({
+      html: generateHtml(productsOfTable),
+    });
+    console.log('File has been saved to:', uri);
+    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
+  }, [productsOfTable]);
+
+  const selectPrinter = async () => {
+    const printer = await Print.selectPrinterAsync(); // iOS only
+    setSelectedPrinter(printer);
+  };
 
   if (table) {
     return (
@@ -308,7 +415,7 @@ const TableScreen = () => {
             marginVertical: 10,
           }}
         >
-          {/* <TouchableOpacity
+          <TouchableOpacity
             style={{
               flex: 1,
               justifyContent: 'center',
@@ -316,11 +423,12 @@ const TableScreen = () => {
               borderRadius: 10,
               borderWidth: 1,
               marginHorizontal: 10,
-              backgroundColor: '#888',
+              backgroundColor: '#eee',
             }}
+            onPress={print}
           >
-            <Text style={{ fontSize: 16 }}>Cancel</Text>
-          </TouchableOpacity> */}
+            <Text style={{ fontSize: 16 }}>Print</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={onCheckout}
             style={{
