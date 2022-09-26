@@ -1,7 +1,8 @@
+import * as Clipboard from 'expo-clipboard';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import React, { useCallback } from 'react';
-import { Alert, Platform, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 
 import { productActions } from '../../state/product';
 import { productsSelector } from '../../state/product/selector';
@@ -37,34 +38,11 @@ const ImportExportScreen = () => {
 
   const products = useAppSelector(productsSelector);
   const exportProductJson = useCallback(async () => {
-    const permissions =
-      Platform.OS === 'android'
-        ? await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync()
-        : { granted: true, directoryUri: FileSystem.documentDirectory };
-
-    if (permissions.granted) {
-      // Gets SAF URI from response
-      const uri = permissions.directoryUri;
-      console.log('uri', uri);
-      // Save data to newly created file
-      const data = JSON.stringify(products);
-      // Alert.alert('alert', FileSystem.documentDirectory?.toString() || '');
-      FileSystem.writeAsStringAsync(
-        `${FileSystem.documentDirectory}products.json`,
-        data,
-      )
-        .then((r) =>
-          Alert.alert(
-            'Export success!',
-            `File saved at ${FileSystem.documentDirectory}products.json`,
-          ),
-        )
-        .catch((e) => {
-          console.log('e', e);
-        });
-    } else {
-      console.log('permissions', permissions);
-      Alert.alert('Do not have permission to save file');
+    try {
+      await Clipboard.setStringAsync(JSON.stringify(products));
+      Alert.alert('Copy success', 'Paste this data to a editor');
+    } catch (e: any) {
+      Alert.alert('Copy error', e.message);
     }
   }, [products]);
 
