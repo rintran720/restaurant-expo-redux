@@ -130,13 +130,13 @@ const TableScreen = () => {
             paddingVertical: 10,
           }}
         >
-          <Text
+          {/* <Text
             style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}
           >{`Item: ${
             productsOfTable.length || 0
-          } of ${calculateTotalItem}`}</Text>
-          <Text style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}>
-            {'Total cost: '.concat(calculateCost.toFixed(2))} €
+          } of ${calculateTotalItem}`}</Text> */}
+          <Text style={{ fontSize: 30, color: '#F19A3E', fontWeight: 'bold' }}>
+            {'Cost: '.concat(calculateCost.toFixed(2))} €
           </Text>
         </View>
         {productsOfTable?.length > 0 && (
@@ -295,6 +295,7 @@ const TableScreen = () => {
             onChangeText={onChangeDiscount}
             placeholder={'Value from 0 to 100'}
             value={discount}
+            keyboardType="numeric"
           />
         </View>
         <View
@@ -304,7 +305,7 @@ const TableScreen = () => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             paddingBottom: 10,
-            marginTop: 10,
+            marginVertical: 10,
           }}
         >
           {/* <TouchableOpacity
