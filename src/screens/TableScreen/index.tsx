@@ -28,39 +28,31 @@ const generateHtml = (products: PickedProduct[]) => {
   const time = moment();
   const code = time.format('HHmmss');
   const timeDisplay = time.format('YYYY:MM:DD HH:mm:ss');
+  let totalCost = 0;
+  products.forEach((p) => (totalCost = totalCost + p.cost * p.qty));
   return `
   <!DOCTYPE html>
   <html>
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+      <style>@page { size: A5 }</style>
       <style>
       body {
-          width: 8cm;
           /* to centre page on screen*/
-          // padding: 10mm;
+          // padding: 20mm;
           display: flex;
           flex-direction: column;
       }
       #head-title{
         width: 100%;
         display: flex;
-        justify-content: space-between;
-      }
-      #code {
-        text-align: left;
-        font-size: 20px;
-        font-family: Helvetica Neue;
-        font-weight: bold;
-  
-      }
-      #time {
-        text-align: right;
-        font-size: 20px;
-        font-family: Helvetica Neue;
-        font-weight: normal;
+        justify-content: center;
+        font-weigth: bold;
+        font-size: 26px
       }
       #content{
         font-size: 20px;
+        margin-top:20px;
       }
       #product-title{
         text-align: left;
@@ -68,34 +60,55 @@ const generateHtml = (products: PickedProduct[]) => {
         font-family: Helvetica Neue;
         font-weight: normal;
       }
+      #p-info{
+        flex:1;
+      }
+      #p-cost{
+        min-width: 20%;
+        text-align: right;
+      }
+      #cost{
+      	text-align: right;
+      }
+      .wtotal{
+      	margin-top: 20px;
+        text-align: right;
+        
+      }
+      .item{
+      	display: flex;
+        flex-direction: row;
+      }
       .bold{
         font-weight: bold;
       }
       
       </style>
     </head>
-    <body>
+    <body class="A5">
       <div id="head-title">
-        <span id="code">
-          # ${code}
-        </span>
-        <span id="time">1231:31:12 12:21:32</span>
+        Mr Wasabi Restaurant
       </div>
       <div id="content">
-        <h6 id="product-title">Products</h6>
-        ${products.map((p, index) => {
-          return `<div class="item">
-              <text class="bold">${index + 1}</text>
-              <text>------</text>
-              <text class="bold">${p.qty}x</text>
-              <text>------</text>
-              <text>${p.name}</text>
-            </div>`;
-        })}
-        
+        ${products.map(
+          (p) => `<div class="item">
+                    <div id="p-info">
+                      <text class="bold">${p.qty} X</text>
+                      <text>------</text>
+                      <text>${p.name}</text>
+                    </div>
+                    <div id="p-cost">
+                      <text id="cost" class="bold">${p.cost} €</text>
+                  	</div>
+                  </div>`,
+        )}
+        <div class="wtotal">
+         <text id="total" class="bold">----------------------</text>
+         </div>
+        <div class="wtotal">
+         <text id="total" class="bold">Total: ${totalCost} €</text>
+         </div>
       </div>
-      
-      
     </body>
   </html>
 `;
@@ -268,7 +281,7 @@ const TableScreen = () => {
                 <View
                   style={{
                     height: '100%',
-                    width: 30,
+                    width: 60,
                     backgroundColor: '#72BDA3',
                     borderBottomLeftRadius: 10,
                     borderTopLeftRadius: 10,
@@ -276,7 +289,7 @@ const TableScreen = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <Text>{index + 1}</Text>
+                  <Text>{item.productId}</Text>
                 </View>
                 <View style={{ flex: 1, padding: 10 }}>
                   <Text style={{ fontSize: 14, fontWeight: '700' }}>
