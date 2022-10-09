@@ -4,77 +4,13 @@ import { Product } from '../product/types';
 import { ITableState, Table } from './types';
 
 const initialState: ITableState = {
-  tables: [
-    {
-      tableId: 1,
-      name: 'Drink',
+  tables: Array.from(Array(20).keys()).map((i) => {
+    return {
+      tableId: i + 1,
+      name: `Table ${i + 1}`,
       products: [],
-    },
-    {
-      tableId: 2,
-      name: 'Drink 2',
-      products: [],
-    },
-    {
-      tableId: 3,
-      name: 'Drink 3',
-      products: [
-        {
-          productId: '123',
-          name: 'ABDA',
-          cost: 12.1,
-          qty: 2,
-        },
-        {
-          productId: '123a',
-          name: 'dasd',
-          cost: 12.1,
-          qty: 1,
-        },
-        {
-          productId: '1232',
-          name: 'ABdasdasf daDA dsa d a sda sd  ',
-          cost: 12.1,
-          qty: 4,
-        },
-        {
-          productId: '1231',
-          name: 'ABsdasdadDA',
-          cost: 12.1,
-          qty: 3,
-        },
-        {
-          productId: '1234',
-          name: 'ABDA',
-          cost: 12.1,
-          qty: 2,
-        },
-        {
-          productId: '1233',
-          name: 'dasd',
-          cost: 12.1,
-          qty: 1,
-        },
-        {
-          productId: '1235',
-          name: 'ABdasdasdaDA',
-          cost: 12.12,
-          qty: 10,
-        },
-        {
-          productId: '126',
-          name: 'ABsdasdadDA',
-          cost: 12.1,
-          qty: 3,
-        },
-      ],
-    },
-    {
-      tableId: 4,
-      name: 'Drink 4',
-      products: [],
-    },
-  ],
+    };
+  }),
 };
 
 const tableSlice = createSlice({

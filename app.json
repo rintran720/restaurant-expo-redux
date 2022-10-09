@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "expo-redux-toolkit",
-    "slug": "expo-redux-toolkit",
-    "version": "1.0.0",
+    "name": "Restaurant",
+    "slug": "Restaurant",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.drjohnsmith.exporeduxtoolkit"
+      "package": "com.drjohnsmith.exporeduxtoolkit4"
     },
     "web": {
       "favicon": "./assets/favicon.png"

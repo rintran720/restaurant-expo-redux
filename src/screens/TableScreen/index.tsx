@@ -242,23 +242,6 @@ const TableScreen = () => {
   if (table) {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 10,
-            paddingVertical: 10,
-          }}
-        >
-          {/* <Text
-            style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}
-          >{`Item: ${
-            productsOfTable.length || 0
-          } of ${calculateTotalItem}`}</Text> */}
-          <Text style={{ fontSize: 30, color: '#F19A3E', fontWeight: 'bold' }}>
-            {'Cost: '.concat(calculateCost.toFixed(2))} €
-          </Text>
-        </View>
         {productsOfTable?.length > 0 && (
           <FlatList<PickedProduct>
             style={{ flex: 1, backgroundColor: '#ccc', paddingVertical: 5 }}
@@ -361,6 +344,32 @@ const TableScreen = () => {
             )}
           />
         )}
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+          }}
+        >
+          {/* <Text
+            style={{ fontSize: 20, color: '#F19A3E', fontWeight: 'bold' }}
+          >{`Item: ${
+            productsOfTable.length || 0
+          } of ${calculateTotalItem}`}</Text> */}
+
+          <Text
+            style={{
+              width: '100%',
+              textAlign: 'right',
+              fontSize: 30,
+              color: 'black',
+              fontWeight: 'bold',
+            }}
+          >
+            {'Total: '.concat(calculateCost.toFixed(2))} €
+          </Text>
+        </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TextInput
             style={styles.input}
