@@ -30,6 +30,24 @@ const generateHtml = (products: PickedProduct[]) => {
   const timeDisplay = time.format('YYYY:MM:DD HH:mm:ss');
   let totalCost = 0;
   products.forEach((p) => (totalCost = totalCost + p.cost * p.qty));
+
+  const totalCostStr = totalCost.toFixed(2);
+
+  const listData = products
+    .map((p) => {
+      return `<div class="item">
+              <div id="p-info">
+                <text class="bold">${p.qty} X</text>
+                <text>------</text>
+                <text>${p.name}</text>
+              </div>
+              <div id="p-cost">
+                <text id="cost" class="bold">${p.cost.toFixed(2)} €</text>
+              </div>
+            </div>`;
+    })
+    .join('');
+
   return `
   <!DOCTYPE html>
   <html>
@@ -90,23 +108,12 @@ const generateHtml = (products: PickedProduct[]) => {
         Mr Wasabi Restaurant
       </div>
       <div id="content">
-        ${products.map(
-          (p) => `<div class="item">
-                    <div id="p-info">
-                      <text class="bold">${p.qty} X</text>
-                      <text>------</text>
-                      <text>${p.name}</text>
-                    </div>
-                    <div id="p-cost">
-                      <text id="cost" class="bold">${p.cost} €</text>
-                  	</div>
-                  </div>`,
-        )}
+        ${listData}
         <div class="wtotal">
          <text id="total" class="bold">----------------------</text>
          </div>
         <div class="wtotal">
-         <text id="total" class="bold">Total: ${totalCost} €</text>
+         <text id="total" class="bold">Total: ${totalCostStr} €</text>
          </div>
       </div>
     </body>

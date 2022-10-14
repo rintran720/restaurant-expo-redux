@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.drjohnsmith.exporeduxtoolkit4"
+      "package": "com.drjohnsmith.restauranapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
