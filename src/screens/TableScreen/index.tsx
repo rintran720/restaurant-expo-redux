@@ -42,7 +42,9 @@ const generateHtml = (products: PickedProduct[]) => {
                 <text>${p.name}</text>
               </div>
               <div id="p-cost">
-                <text id="cost" class="bold">${p.cost.toFixed(2)} €</text>
+                <text id="cost" class="bold">${(p.cost * p.qty).toFixed(
+                  2,
+                )} €</text>
               </div>
             </div>`;
     })
@@ -105,7 +107,7 @@ const generateHtml = (products: PickedProduct[]) => {
     </head>
     <body class="A5">
       <div id="head-title">
-        Mr Wasabi Restaurant
+        Barzahlung
       </div>
       <div id="content">
         ${listData}
